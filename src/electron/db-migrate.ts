@@ -4,6 +4,7 @@ import * as path from 'path';
 export class DbMigrate {
 
   private umzug;
+  private debugging = false;
 
   constructor(private sequelize, private Sequelize) {
     const Umzug = require('umzug');
@@ -14,6 +15,8 @@ export class DbMigrate {
       storageOptions: {
         sequelize: this.sequelize
       },
+      // logging: this.customLog.bind(this),
+      // logging: false,
       migrations: {
         params: [
           this.sequelize.getQueryInterface(),
@@ -27,5 +30,11 @@ export class DbMigrate {
 
   getUmzug() {
     return this.umzug;
+  }
+
+  customLog(message: any) {
+    if (this.debugging) {
+      console.log(message);
+    }
   }
 }

@@ -1,3 +1,6 @@
-<p>
-  city works!
-</p>
+<cdk-virtual-scroll-viewport [itemSize]="52.5">
+  <div *cdkVirtualFor="let state of statesObservable | async;">
+    <div>{{state.name}}</div>
+    <div>{{state.capital}}</div>
+  </div>
+</cdk-virtual-scroll-viewport>

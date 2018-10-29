@@ -33,6 +33,7 @@ export class DbManager {
 
   public connect() {
     this.sequelize.authenticate()
+
       .then(() => {
         this.sequelize.sync()
           .then(() => {
@@ -57,5 +58,4 @@ export class DbManager {
         console.log(error);
       });
   }
-
 }
