@@ -32,20 +32,30 @@ export class DbManager {
   }
 
   public connect() {
-    const dbMigrate = new DbMigrate(this.sequelize, Sequelize);
-    dbMigrate.getUmzug().up()
+    this.sequelize.authenticate()
       .then(() => {
-        this.sequelize.authenticate()
+        this.sequelize.sync()
           .then(() => {
-            this.callModel.sync();
+            this.migrate();
           })
           .catch(error => {
-            console.log('unable to connect to the database');
+            console.log('sync error');
           });
       })
       .catch(error => {
-          console.log(error);
-        });
+        console.log('unable to connect to the database');
+      });
+  }
+
+  migrate() {
+    const dbMigrate = new DbMigrate(this.sequelize, Sequelize);
+    dbMigrate.getUmzug().up()
+      .then(() => {
+        console.log('migrate success');
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
 }
