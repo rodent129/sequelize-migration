@@ -1,4 +1,4 @@
-import Sequelize from 'sequelize';
+import { Sequelize } from 'sequelize';
 import * as path from 'path';
 import {DbMigrate} from './db-migrate';
 
